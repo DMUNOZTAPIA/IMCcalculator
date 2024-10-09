@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <div id="contenedor">
+            <h1 style="font-size: 35px;">Calcula tu IMC</h1>
+            <div id="peso_contendor">
+                <label>Peso</label>
+                <input id="peso" type="number" placeholder="peso en kg" style="background-color: beige; color:black;" />
+            </div>
+            <div id="estatura_contenedor">
+                <label>Estatura</label>
+                <input id="estatura" type="number" placeholder="estatura en metros"
+                    style="background-color: beige; color:black;" />
+            </div>
+            <button id="button" type="submit">calcular</button>
+            <div id="contenedor_resultado">
+                <h2 style="margin: 0px; margin-top: 25px;">Tu IMC es de:</h2>
+                <p id="resultado" style="margin: 0px;"></p>
+            </div>
+        </div>
+    </main>
+    <script>
+        const pesoInput = document.getElementById('peso');
+        const estaturaInput = document.getElementById('estatura');
+        const resultadoElement = document.getElementById('resultado');
+        const contenedorResultado = document.getElementById('contenedor_resultado');
+
+        function Calcular() {
+
+            const peso = parseFloat(pesoInput.value);
+            const estatura = parseFloat(estaturaInput.value);
+
+            // Validamos si los campos están vacíos o no son números válidos
+            if (isNaN(peso) || isNaN(estatura) || estatura <= 0 || peso <= 0) {
+                resultadoElement.innerText = "Por favor, ingrese valores válidos para peso y estatura.";
+                contenedorResultado.style.visibility = 'visible';
+                return;
+            }
+
+            const imc = peso / (estatura ** 2)
+            resultadoElement.innerText = ` ${imc.toFixed(2)}`;
+            contenedorResultado.style.visibility = 'visible';
+
+            if (imc <= 18.5) {
+                resultadoElement.innerText += ' :Tu peso es inferior a lo normal 💀​ debes comer más'
+            } else if (imc >= 18.6 && imc <= 24.9) {
+                resultadoElement.innerText += ' :Tu peso está perfecto 💪​'
+            } else if (imc >= 25 && imc <= 29.9) {
+                resultadoElement.innerText += ' :Estas con sobrepeso 🍔 deberias hacer ejercicio y dieta​ '
+            } else {
+                resultadoElement.innerText += ' :Estas con obesidad 🍔​🍩​🍻​deberias hacer ejercicio y dieta​'
+            }
+
+        }
+        document.querySelector('button').addEventListener('click', Calcular);
+
+    </script>
+</body>
+
+</html>
